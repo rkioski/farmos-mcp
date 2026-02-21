@@ -58,7 +58,7 @@ Then open `.env` in a text editor and fill in your values.
 ```env
 FARMOS_URL=https://myfarm.example.com
 FARMOS_CLIENT_ID=farm
-FARMOS_CLIENT_SECRET=
+FARMOS_CLIENT_SECRET=          # leave empty for Public clients
 FARMOS_USERNAME=admin
 FARMOS_PASSWORD=yourpassword
 FARMOS_READ_ONLY=true

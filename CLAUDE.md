@@ -41,7 +41,7 @@ Copy `.env.example` to `.env`. Required variables:
 
 ```
 FARMOS_URL=https://your-farmos-instance
-FARMOS_CLIENT_ID=farm_mcp
+FARMOS_CLIENT_ID=farm
 FARMOS_CLIENT_SECRET=your_secret
 
 # Password grant (optional, simpler for personal use)
@@ -52,7 +52,7 @@ FARMOS_PASSWORD=your_password
 FARMOS_READ_ONLY=true
 ```
 
-For Claude Desktop, add the server under `mcpServers` in `claude_desktop_config.json` using `python /path/to/server.py` or the `farmos-mcp` entry point, and pass env vars there instead of relying on `.env`.
+For Claude Desktop, add the server under `mcpServers` in `claude_desktop_config.json` using `python3 /path/to/server.py` or the `farmos-mcp` entry point, and pass env vars there instead of relying on `.env`.
 
 ## farmOS API Notes
 
