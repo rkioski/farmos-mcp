@@ -1,6 +1,6 @@
 # farmOS MCP Server
 
-An [MCP](https://modelcontextprotocol.io) server that connects [Claude Desktop](https://claude.ai/download) to your self-hosted [farmOS](https://farmos.org) installation. Chat with Claude about your farm using live data.
+An [MCP](https://modelcontextprotocol.io) server that connects [Claude Desktop](https://claude.ai/download) to your self-hosted [farmOS](https://farmos.org) installation. Chat with Claude about your farm using live data. Tested with farmOS 3.x.
 
 ## Tools
 
@@ -16,7 +16,7 @@ An [MCP](https://modelcontextprotocol.io) server that connects [Claude Desktop](
 ## Prerequisites
 
 - Python 3.10+ — download from [python.org](https://www.python.org/downloads/) if not already installed
-- A running farmOS 2.x instance
+- A running farmOS 3.x instance
 - An OAuth2 client configured in farmOS
 
 ## farmOS OAuth2 client setup

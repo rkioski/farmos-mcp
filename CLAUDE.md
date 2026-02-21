@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-MCP (Model Context Protocol) server that bridges Claude Desktop with a self-hosted farmOS 2.x instance via its JSON:API. Exposes farmOS logs and assets as MCP tools and prompt templates.
+MCP (Model Context Protocol) server that bridges Claude Desktop with a self-hosted farmOS 3.x instance via its JSON:API. Exposes farmOS logs and assets as MCP tools and prompt templates.
 
 ## Commands
 
