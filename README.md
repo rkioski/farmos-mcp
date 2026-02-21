@@ -15,7 +15,7 @@ An [MCP](https://modelcontextprotocol.io) server that connects [Claude Desktop](
 
 ## Prerequisites
 
-- Python 3.10+
+- Python 3.10+ — download from [python.org](https://www.python.org/downloads/) if not already installed
 - A running farmOS 2.x instance
 - An OAuth2 client configured in farmOS
 
@@ -28,6 +28,8 @@ An [MCP](https://modelcontextprotocol.io) server that connects [Claude Desktop](
 
 ## Installation
 
+Open a terminal and run:
+
 ```bash
 git clone https://github.com/rkioski/farmos-mcp
 cd farmos-mcp
@@ -37,16 +39,19 @@ pip install -e .
 Or with [uv](https://docs.astral.sh/uv/):
 
 ```bash
+git clone https://github.com/rkioski/farmos-mcp
+cd farmos-mcp
 uv pip install -e .
 ```
 
 ## Configuration
 
-Copy `.env.example` to `.env` and fill in your values:
+Copy `.env.example` to `.env`:
 
-```bash
-cp .env.example .env
-```
+- **macOS/Linux:** `cp .env.example .env`
+- **Windows:** `copy .env.example .env`
+
+Then open `.env` in a text editor and fill in your values.
 
 ### Password grant (recommended for personal use)
 
@@ -78,7 +83,7 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) o
 {
   "mcpServers": {
     "farmos": {
-      "command": "python",
+      "command": "python3",
       "args": ["/absolute/path/to/farmos-mcp/server.py"],
       "env": {
         "FARMOS_URL": "https://myfarm.example.com",
@@ -93,13 +98,17 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) o
 }
 ```
 
+Replace `/absolute/path/to/farmos-mcp/server.py` with the actual path to where you cloned the repository. On Windows use `python` instead of `python3`.
+
 > **Tip:** If you use a `.env` file, you can omit the `env` block from the Claude config — the server loads `.env` automatically on startup.
 
-If you installed with `uv`, replace `"command": "python"` with `"command": "uv"` and `"args": ["run", "python", "/path/to/server.py"]`.
+If you installed with `uv`, replace `"command": "python3"` with `"command": "uv"` and `"args": ["run", "--project", "/absolute/path/to/farmos-mcp", "farmos-mcp"]`.
+
+**After saving the config, restart Claude Desktop.**
 
 ## Enabling write mode
 
-Set `FARMOS_READ_ONLY=false` to enable `create_log` and `update_log`. Use with care — Claude will be able to write to your farmOS.
+Set `FARMOS_READ_ONLY=false` in your `.env` file or in the `env` block of your Claude Desktop config to enable `create_log` and `update_log`. Use with care — Claude will be able to write to your farmOS.
 
 ## Example prompts
 

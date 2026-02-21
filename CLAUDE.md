@@ -31,7 +31,7 @@ No automated tests or linting are configured.
 
 **HTTP client:** `farmos_client.py` — singleton `FarmOSClient` wrapping httpx with OAuth2 (password grant or client credentials). Tokens are fetched lazily and refreshed automatically on 401 responses. Access via `get_client()`.
 
-**Tools:** `tools/logs.py` and `tools/assets.py` — each tool function is a standalone async function decorated with `@mcp.add_tool()`. All return JSON strings, not Python objects.
+**Tools:** `tools/logs.py` and `tools/assets.py` — each tool function is a plain synchronous function registered via `mcp.add_tool(fn)` in `server.py`. All return JSON strings, not Python objects.
 
 **Data normalization pattern:** Every tool module has `_normalize_*()` helpers that flatten farmOS JSON:API responses (which include `attributes` and `relationships` nesting) into flat dicts. `_refs()` extracts relationship references, and `_resolve_names()` enriches them from the `included` sideload array.
 
