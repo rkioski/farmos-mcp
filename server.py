@@ -3,6 +3,11 @@ from mcp.server.fastmcp import FastMCP
 from farmos_client import is_read_only
 from tools.logs import get_log, get_logs
 from tools.assets import get_asset, get_assets
+from tools.terms import get_terms
+from tools.plans import get_plan, get_plans
+from tools.users import get_users
+from tools.farm import get_farm_info
+from tools.quantities import get_quantities
 
 mcp = FastMCP("farmOS")
 
@@ -11,12 +16,27 @@ mcp.add_tool(get_logs)
 mcp.add_tool(get_log)
 mcp.add_tool(get_assets)
 mcp.add_tool(get_asset)
+mcp.add_tool(get_terms)
+mcp.add_tool(get_plans)
+mcp.add_tool(get_plan)
+mcp.add_tool(get_users)
+mcp.add_tool(get_farm_info)
+mcp.add_tool(get_quantities)
 
 # --- Write tools (only when FARMOS_READ_ONLY=false) ---
 if not is_read_only():
     from tools.logs import create_log, update_log
+    from tools.assets import create_asset, update_asset
+    from tools.terms import create_term, update_term
+    from tools.plans import create_plan, update_plan
     mcp.add_tool(create_log)
     mcp.add_tool(update_log)
+    mcp.add_tool(create_asset)
+    mcp.add_tool(update_asset)
+    mcp.add_tool(create_term)
+    mcp.add_tool(update_term)
+    mcp.add_tool(create_plan)
+    mcp.add_tool(update_plan)
 
 
 # ---------------------------------------------------------------------------
@@ -47,7 +67,8 @@ def pending_tasks() -> str:
 def farm_overview() -> str:
     """Give me a full overview of my farm: assets and recent activity."""
     return (
-        "First call get_assets to list all active assets grouped by type (land, plants, animals, equipment). "
+        "First call get_farm_info to confirm the farm name and unit system. "
+        "Then call get_assets to list all active assets grouped by type (land, plants, animals, equipment). "
         "Then call get_logs with limit=10 to get the latest activity. "
         "Present a concise overview: what assets exist, what has been done recently, "
         "and what is still pending."

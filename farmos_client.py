@@ -78,17 +78,28 @@ class FarmOSClient:
     # HTTP helpers — retry once on 401 (expired token)
     # ------------------------------------------------------------------
 
-    def _request(self, method: str, url: str, **kwargs) -> httpx.Response:
+    def _request(self, method: str, url: str, extra_headers: dict | None = None, **kwargs) -> httpx.Response:
         params = kwargs.get("params")
         logging.debug("REQUEST %s %s params=%s", method, url, params)
-        resp = self._http.request(method, url, headers=self._auth_headers(), **kwargs)
+        headers = {**self._auth_headers(), **(extra_headers or {})}
+        resp = self._http.request(method, url, headers=headers, **kwargs)
         logging.debug("RESPONSE %s %s — got %s, body preview: %s", method, url, resp.status_code, resp.text[:300])
         if resp.status_code == 401:
             logging.warning("RESPONSE 401 — re-authenticating and retrying")
             self._access_token = None
-            resp = self._http.request(method, url, headers=self._auth_headers(), **kwargs)
+            headers = {**self._auth_headers(), **(extra_headers or {})}
+            resp = self._http.request(method, url, headers=headers, **kwargs)
             logging.debug("RESPONSE retry %s — %s", url, resp.status_code)
-        resp.raise_for_status()
+        if resp.is_error:
+            try:
+                body = resp.json()
+                errors = body.get("errors", [])
+                msg = "; ".join(
+                    e.get("detail") or e.get("title") or str(e) for e in errors
+                ) if errors else resp.text[:500]
+            except Exception:
+                msg = resp.text[:500]
+            raise RuntimeError(f"HTTP {resp.status_code}: {msg}")
         return resp
 
     def get(self, path: str, params: dict | None = None) -> dict:
@@ -97,13 +108,11 @@ class FarmOSClient:
 
     def post(self, path: str, payload: dict) -> dict:
         url = f"{self.api_url}/{path.lstrip('/')}"
-        headers = {"Content-Type": "application/vnd.api+json"}
-        return self._request("POST", url, json={"data": payload}, headers=headers).json()
+        return self._request("POST", url, extra_headers={"Content-Type": "application/vnd.api+json"}, json={"data": payload}).json()
 
     def patch(self, path: str, payload: dict) -> dict:
         url = f"{self.api_url}/{path.lstrip('/')}"
-        headers = {"Content-Type": "application/vnd.api+json"}
-        return self._request("PATCH", url, json={"data": payload}, headers=headers).json()
+        return self._request("PATCH", url, extra_headers={"Content-Type": "application/vnd.api+json"}, json={"data": payload}).json()
 
 
 # ------------------------------------------------------------------
