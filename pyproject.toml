@@ -10,6 +10,10 @@ dependencies = [
     "python-dotenv>=1.0.0",
 ]
 
+[project.urls]
+Homepage = "https://github.com/rkioski/farmos-mcp"
+Repository = "https://github.com/rkioski/farmos-mcp"
+
 [project.scripts]
 farmos-mcp = "server:main"
 

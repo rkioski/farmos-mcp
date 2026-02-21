@@ -29,7 +29,7 @@ An [MCP](https://modelcontextprotocol.io) server that connects [Claude Desktop](
 ## Installation
 
 ```bash
-git clone https://github.com/yourname/farmos-mcp
+git clone https://github.com/rkioski/farmos-mcp
 cd farmos-mcp
 pip install -e .
 ```

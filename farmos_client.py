@@ -7,9 +7,10 @@ from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).parent / ".env")
 
+_log_level = getattr(logging, os.environ.get("LOG_LEVEL", "WARNING").upper(), logging.WARNING)
 logging.basicConfig(
     stream=sys.stderr,
-    level=logging.DEBUG,
+    level=_log_level,
     format="%(asctime)s [farmos-mcp] %(levelname)s %(message)s",
 )
 
