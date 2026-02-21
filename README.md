@@ -113,6 +113,14 @@ If you installed with `uv`, replace `"command": "python3"` with `"command": "uv"
 
 Set `FARMOS_READ_ONLY=false` in your `.env` file or in the `env` block of your Claude Desktop config to enable `create_log` and `update_log`. Use with care — Claude will be able to write to your farmOS.
 
+## AI agent instructions
+
+Claude's ability to query your farmOS data depends on how it interprets your requests. The default behavior (e.g. filtering logs by `asset_id`) may miss related logs that appear as locations rather than assets, or logs linked to multiple fields at once.
+
+You can improve results significantly by giving Claude a custom instruction file. Create a markdown file describing your farm's structure and preferred query patterns — such as which log types exist on your instance, your field names and UUIDs, and instructions to fetch all log types and filter manually rather than relying on API-level filters.
+
+Add the file to Claude Desktop via **Settings → Profile → Custom instructions** or by referencing it in a Project.
+
 ## Example prompts
 
 - *"What did I do on the farm last week?"*
